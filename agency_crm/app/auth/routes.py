@@ -45,6 +45,11 @@ def register():
         user.set_password(form.password.data)
         db.session.add(user)
         db.session.commit()
+
+        # Sync user to projects-crm
+        from app.api.sync import sync_user_to_projects_crm
+        sync_user_to_projects_crm(user)
+
         flash('Congratulations, you are now registered!', 'success')
         return redirect(url_for('auth.login'))
     return render_template('auth/register.html', title='Register', form=form)

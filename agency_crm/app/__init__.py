@@ -30,5 +30,8 @@ def create_app(config_class=Config):
     
     from app.dashboard import bp as dashboard_bp
     app.register_blueprint(dashboard_bp, url_prefix='/')
-    
+
+    from app.api import bp as api_bp
+    app.register_blueprint(api_bp, url_prefix='/api')
+
     return app

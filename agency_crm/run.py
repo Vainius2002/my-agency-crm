@@ -1,5 +1,10 @@
 #!/usr/bin/env python
 import os
+from dotenv import load_dotenv
+
+# Load environment variables from .env file in parent directory
+load_dotenv('/home/vainiusl/py_projects/my-agency-crm/.env')
+
 from app import create_app, db
 from app.models import User, Company, Brand, ClientContact, MediaGroup
 
