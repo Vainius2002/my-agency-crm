@@ -16,16 +16,4 @@ def make_shell_context():
             'ClientContact': ClientContact, 'MediaGroup': MediaGroup}
 
 if __name__ == '__main__':
-    with app.app_context():
-        db.create_all()
-        
-        # Create default media groups if they don't exist
-        if MediaGroup.query.count() == 0:
-            default_groups = ['TV3 Group', 'M-1 Group', 'LRT', 'Radio Center', 'Clear Channel']
-            for group_name in default_groups:
-                mg = MediaGroup(name=group_name)
-                db.session.add(mg)
-            db.session.commit()
-            print("Default media groups created.")
-    
     app.run(debug=True, host='0.0.0.0', port=5001)
