@@ -156,7 +156,7 @@ def sync_brands_to_ekranu():
             })
 
         # Send to ekranu-crm
-        ekranu_url = 'http://172.20.89.236:5003/api/import-brands'  # Assuming ekranu-crm runs on port 5003
+        ekranu_url = 'http://localhost:5003/api/import-brands'
         headers = {'X-API-Key': 'ekranu-crm-api-key', 'Content-Type': 'application/json'}
 
         response = requests.post(ekranu_url, json={'brands': brands_data}, headers=headers, timeout=10)

@@ -15,7 +15,7 @@ def create_app(config_class=Config):
     config_class.init_app(app)
 
     # Enable CORS for API requests
-    CORS(app, origins=['http://localhost:5003', 'http://172.20.89.236:5003'])
+    CORS(app, origins=['http://localhost:5003'])
 
     db.init_app(app)
     migrate.init_app(app, db)
