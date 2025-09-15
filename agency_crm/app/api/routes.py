@@ -135,6 +135,41 @@ def get_brand(brand_id):
     except Exception as e:
         return jsonify({'error': str(e)}), 500
 
+@bp.route('/brands/sync-to-ekranu', methods=['POST'])
+@require_api_key
+def sync_brands_to_ekranu():
+    """Sync brands to ekranu-crm"""
+    import requests
+    try:
+        # Get all brands (both active and inactive to handle deletions)
+        brands = Brand.query.join(Company).all()
+
+        brands_data = []
+        for brand in brands:
+            brands_data.append({
+                'id': brand.id,
+                'name': brand.name,
+                'company': brand.company.name,
+                'external_id': brand.id,
+                'full_name': f"{brand.company.name} - {brand.name}",
+                'status': brand.status  # Include status so ekranu-crm can handle deletions
+            })
+
+        # Send to ekranu-crm
+        ekranu_url = 'http://172.20.89.236:5003/api/import-brands'  # Assuming ekranu-crm runs on port 5003
+        headers = {'X-API-Key': 'ekranu-crm-api-key', 'Content-Type': 'application/json'}
+
+        response = requests.post(ekranu_url, json={'brands': brands_data}, headers=headers, timeout=10)
+
+        if response.status_code == 200:
+            response_data = response.json()
+            return jsonify({'success': True, 'message': f"Synced {len(brands_data)} brands to ekranu-crm"}), 200
+        else:
+            return jsonify({'success': False, 'error': f"Failed to sync to ekranu-crm: {response.status_code}"}), 500
+
+    except Exception as e:
+        return jsonify({'success': False, 'error': str(e)}), 500
+
 @bp.route('/companies', methods=['GET'])
 @require_api_key
 def get_companies():
