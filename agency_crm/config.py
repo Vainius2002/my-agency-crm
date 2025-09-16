@@ -14,9 +14,9 @@ class Config:
     ALLOWED_EXTENSIONS = {'pdf', 'doc', 'docx', 'ppt', 'pptx', 'xls', 'xlsx', 'png', 'jpg', 'jpeg', 'gif'}
 
     # API Configuration
-    API_KEY = os.environ.get('API_KEY') or 'dev-api-key-change-in-production'
-    PROJECTS_CRM_URL = os.environ.get('PROJECTS_CRM_URL') or 'http://localhost:5002'
-    PROJECTS_CRM_API_KEY = os.environ.get('PROJECTS_CRM_API_KEY') or 'projects-crm-api-key'
+    API_KEY = os.environ.get('API_KEY') or 'my-agency-crm-api-key-change-in-production'
+    PROJECTS_CRM_URL = os.environ.get('PROJECTS_CRM_URL') or 'http://91.99.165.20:5002'
+    PROJECTS_CRM_API_KEY = os.environ.get('PROJECTS_CRM_API_KEY') or 'projects-crm-api-key-change-in-production'
 
     @staticmethod
     def init_app(app):

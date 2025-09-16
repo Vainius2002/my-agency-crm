@@ -5,7 +5,7 @@ from flask import current_app
 def sync_user_to_projects_crm(user):
     """Sync a user from my-agency-crm to projects-crm"""
     try:
-        projects_crm_url = current_app.config.get('PROJECTS_CRM_URL', 'http://localhost:5001')
+        projects_crm_url = current_app.config.get('PROJECTS_CRM_URL', 'http://91.99.165.20:5002')
         projects_crm_api_key = current_app.config.get('PROJECTS_CRM_API_KEY')
 
         if not projects_crm_api_key:
@@ -31,7 +31,7 @@ def sync_user_to_projects_crm(user):
             timeout=5
         )
 
-        if response.status_code == 200:
+        if response.status_code in [200, 201]:
             current_app.logger.info(f'Successfully synced user {user.email} to projects-crm')
             return True
         else:
