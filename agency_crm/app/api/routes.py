@@ -155,7 +155,7 @@ def sync_brands_to_ekranu():
                 'status': brand.status  # Include status so ekranu-crm can handle deletions
             })
 
-        # Send to ekranu-crm
+        # Send to ekranu-crm using localhost (already correct)
         ekranu_url = 'http://localhost:5003/api/import-brands'
         headers = {'X-API-Key': 'ekranu-crm-api-key', 'Content-Type': 'application/json'}
 
